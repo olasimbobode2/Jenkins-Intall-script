@@ -1,3 +1,9 @@
+JENKINS-INSTALLATION
+Prerequisite
+AWS Acccount.
+Create Redhat EC2 T2.medium Instance with 4GB RAM.
+Create Security Group and open Required ports.
+
 sudo wget -O /etc/yum.repos.d/jenkins.repo \
     https://pkg.jenkins.io/redhat-stable/jenkins.repo
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
@@ -27,7 +33,7 @@ Create Security Group and open Required ports.
 9000 ..etc
 Attach Security Group to EC2 Instance.
 Install java openJDK 1.8+ for SonarQube version 7.8
-1. Create sonar user to manage the SonarQube server
+Create sonar user to manage the SonarQube server
 #As a good security practice, SonarQuber Server is not advised to run sonar service as a root user, 
 # create a new user called sonar and grant sudo access to manage sonar services as follows
 
@@ -37,9 +43,9 @@ sudo echo "sonar ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/sonar
 # set hostname for the sonarqube server
 sudo hostnamectl set-hostname sonar 
 sudo su - sonar
-1b. Assign password to sonar user
+Assign password to sonar user
 sudo passwd sonar
- Enable PasswordAuthentication in the server
+Enable PasswordAuthentication in the server
 sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]no/c\PasswordAuthentication yes" /etc/ssh/sshd_config
 sudo service sshd restart
 Install Java JDK 1.8+ required for sonarqube to start
@@ -57,6 +63,7 @@ sudo chmod -R 775 /opt/sonarqube/
 start sonarQube server
 sh /opt/sonarqube/bin/linux-x86-64/sonar.sh start 
 sh /opt/sonarqube/bin/linux-x86-64/sonar.sh status
+
 Ensure that SonarQube is running and Access sonarQube on the browser
 sonarqube default port is = 9000
 get the sonarqube public ip address
@@ -105,7 +112,7 @@ sudo ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
 sudo systemctl enable nexus
 sudo systemctl start nexus
 sudo systemctl status nexus
-echo "end of nexus installation"
+#echo "end of nexus installation"
 
 =====================
 access nexus on the browser
