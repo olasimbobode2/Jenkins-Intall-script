@@ -72,54 +72,57 @@ curl -v localhost:9000
 54.236.232.85:9000
 default USERNAME: admin
 default password: admin
+====================================================
 
 
 NEXUS INSTALLATION
-Pre-requisite
-AWS Acccount.
-Create Redhat EC2 t2.medium Instance with 4GB RAM.
-Create Security Group and open Required ports.
-8081 ..etc
-Attach Security Group to EC2 Instance.
-Install java openJDK 1.8+ for Nexus version 3.15
-Create nexus user to manage the Nexus server
-#As a good security practice, Nexus is not advised to run nexus service as a root user, 
-# so create a new user called nexus and grant sudo access to manage nexus services as follows. 
-sudo hostnamectl set-hostname nexus
-useradd nexus
-Give sudo access to nexus user
+Olasimbo Bode, [12/26/2022 9:36 PM]
+sudo hostname nexus
+sudo useradd nexus
+# Grand sudo access to nexus user
 sudo echo "nexus ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/nexus
-sudo su - sonar
+sudo su - nexus
+
+Olasimbo Bode, [12/26/2022 9:36 PM]
 cd /opt
-Install prerequisit: JAVA, git, unzip
 sudo yum install wget git nano unzip -y
 sudo yum install java-11-openjdk-devel java-1.8.0-openjdk-devel -y
-Download nexus software and extract it (unzip)
+
+Olasimbo Bode, [12/26/2022 9:44 PM]
 sudo wget http://download.sonatype.com/nexus/3/nexus-3.15.2-01-unix.tar.gz 
 sudo tar -zxvf nexus-3.15.2-01-unix.tar.gz
-mv /opt/nexus-3.15.2-01 /opt/nexus
-Change the owner and group permissions to /opt/nexus and /opt/sonatype-work directories.
+sudo mv /opt/nexus-3.15.2-01 /opt/nexus
+
+Olasimbo Bode, [12/26/2022 9:45 PM]
+# Change the owner and group permissions to /opt/nexus and /opt/sonatype-work directories.
 sudo chown -R nexus:nexus /opt/nexus
 sudo chown -R nexus:nexus /opt/sonatype-work
 sudo chmod -R 775 /opt/nexus
 sudo chmod -R 775 /opt/sonatype-work
-Open /opt/nexus/bin/nexus.rc file and  uncomment run_as_user parameter and set as nexus user.
-vi /opt/nexus/bin/nexus.rc
-run_as_user="nexus"
-CONFIGURE NEXUS TO RUN AS A SERVICE 
+
+Olasimbo Bode, [12/26/2022 9:46 PM]
+echo  'run_as_user="nexus" ' > /opt/nexus/bin/nexus.rc
+
+Olasimbo Bode, [12/26/2022 9:47 PM]
 sudo ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
-Enable and start the nexus services
+
+#9 Enable and start the nexus services
 sudo systemctl enable nexus
 sudo systemctl start nexus
 sudo systemctl status nexus
-#echo "end of nexus installation"
+echo "end of nexus installation"
 
-=====================
+Olasimbo Bode, [12/26/2022 10:19 PM]
+<user username="myLandmark" password="admin123" roles="manager-gui,admin-gui,manager-script"/>
+
+Olasimbo Bode, [12/26/2022 10:26 PM]
+vi /opt/tomcat9/webapps/manager/META-INF/context.xml
+===================================
 access nexus on the browser
 34.229.62.93:8081
 userName  --- ADMIN
 Password   ADMIN123
-
+====================================
 
 
 
