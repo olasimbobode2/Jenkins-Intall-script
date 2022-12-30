@@ -158,6 +158,7 @@ starttomcat
 
 
 
+Scripted Pipeline
 
 
 
@@ -194,6 +195,22 @@ starttomcat
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Declarative Pipeline Script
 
 pipeline{
   agent any 
